@@ -47,10 +47,6 @@ export const drawLetters = () => {
     count++;
   }
 
-  // console.log('************************************');
-  // console.log(lettersInHand);
-  // console.log('************************************');
-
   return lettersInHand;
 };
 
@@ -70,8 +66,94 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+
+  const LETTER_SCORE = {
+    A: 1,
+    E: 1,
+    I: 1,
+    O: 1,
+    U: 1,
+    L: 1,
+    N: 1,
+    R: 1,
+    S: 1,
+    T: 1,
+    D: 2,
+    G: 2,
+    B: 3,
+    C: 3,
+    M: 3,
+    P: 3,
+    F: 4,
+    H: 4,
+    V: 4,
+    W: 4,
+    Y: 4,
+    K: 5,
+    J: 8,
+    X: 8,
+    Q: 10,
+    Z: 10
+  };
+
+  let totalScore = 0;
+
+  if (!word) {
+    return totalScore;
+  }
+
+  word = word.toUpperCase();
+
+  if (word.length === 7 || word.length === 8 || word.length === 9 || word.length === 10) {
+    totalScore += 8;
+  }
+
+  for (let letter of word) {
+    totalScore += LETTER_SCORE[letter];
+  }
+
+  return totalScore;
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+
+  let score;
+  let highestScore = 0;
+  let wordsWithHighestScore = [];
+
+  for (let word of words) {
+    score = scoreWord(word);
+    if (score > highestScore) {
+      wordsWithHighestScore = [];
+      wordsWithHighestScore.push(word);
+      highestScore = score;
+    } else if (score === highestScore) {
+      wordsWithHighestScore.push(word);
+    }
+  }
+
+  for (let word of wordsWithHighestScore) {
+    if (word.length === 10) {
+      return {
+        'word': word,
+        'score': highestScore
+      };
+    }
+  }
+
+  let minLength = 10;
+  let wordWithMihLength;
+
+  for (let word of wordsWithHighestScore) {
+    if (word.length < minLength) {
+      wordWithMihLength = word;
+      minLength = word.length;
+    }
+  }
+
+  return {
+    'word': wordWithMihLength,
+    'score': highestScore
+  };
 };
