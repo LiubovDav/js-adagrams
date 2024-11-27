@@ -64,6 +64,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
+const isWordAtListSevenCharsLong = (word) => {
+  return word.length >= 7;
+};
+
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 
@@ -104,7 +108,7 @@ export const scoreWord = (word) => {
 
   word = word.toUpperCase();
 
-  if (word.length === 7 || word.length === 8 || word.length === 9 || word.length === 10) {
+  if (isWordAtListSevenCharsLong(word)) {
     totalScore += 8;
   }
 
