@@ -53,12 +53,16 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
+  let lettersInHandCopy = lettersInHand.map((x) => x);
+  let index;
+
   for (const letter of input) {
-    if (!lettersInHand.includes(letter)) {
+    index = lettersInHandCopy.indexOf(letter);
+    if (index !== -1) {
+      lettersInHandCopy.splice(index, 1);
+    } else {
       return false;
     }
-
-    lettersInHand.splice(letter, 1);
   }
 
   return true;
